@@ -1,0 +1,25 @@
+button {
+  float: left;
+  position: absolute;
+  z-index: -1;
+  width: 200px;
+  height: 50px;
+}
+
+input {
+  opacity: 0;
+  font-size: 0;
+  width: 90px;
+  height: 37px;
+  float: left;
+}
+
+input:hover {
+  cursor: pointer;
+}
+
+label {
+  float: left;
+  margin-left: 6px;
+  margin-top: 7px;
+}

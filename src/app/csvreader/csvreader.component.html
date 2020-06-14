@@ -1,0 +1,13 @@
+<form [formGroup]="fileUpload">
+  <button #file class="btn btn-light">{{ fileName }}</button>
+  <div style="display: inline-block;">
+    <input
+      #myInput
+      formControlName="file"
+      id="file"
+      name="file"
+      (change)="changeListener($event.target.files)"
+      type="file"
+    />
+  </div>
+</form>

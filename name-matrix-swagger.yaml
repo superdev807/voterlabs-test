@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Name Matrix
+  version: 0.1.9
+  description: |
+    VoterLabs Inc. Name Matrix. This API provides a simple interface for validating names and addresses within the United States. End points for checking an individual or a batch group of persons are available.
+servers:
+  - url: 'https://localhost:4000'
+paths:
+  /batchEnhance:
+    post:
+      description: |
+        Accepts an array of Person objects and returns an array of EnhancedPerson objects.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type:
+                  $ref: '#/components/schema/Person'
+            examples: {}
+      responses:
+        '200':
+          description: Batch was processed
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: '#/components/schema/EnhancedPerson'
+      operationId: ''
+      summary: ''
+  /enhance:
+    post:
+      description: |
+        Accepts a Person object and returns an EnhancedPerson object.
+      requestbody:
+        content:
+          application/json:
+            schema:
+              type:
+                $ref: '#/components/schema/Person'
+      responses:
+        '200':
+          description: Person was processed
+          content:
+            application/json:
+              schema:
+                type:
+                  $ref: '#/components/schema/EnhancedPerson'
+components:
+  schemas:
+    Person:
+      description: |
+        A Person object contains key identifying information for validating and correcting information about an individual.
+      type: object
+      required:
+        - id
+        - timestamp
+        - fname
+        - lname
+        - address_1
+        - city
+        - state
+        - zip
+      properties:
+        id:
+          description: A Unique Record ID. Required
+          type: string
+        timestamp:
+          description: |
+            The timestamp indicating when this record was last updated. This is used to break ties when Record IDs match. In the case of matching IDs, the latest timestamp is used. If both the timestamp and Record ID match, the most recently inserted record is used. Required
+          type: string
+          format: date-time
+        fname:
+          description: First Name. Required
+          type: string
+        lname:
+          description: Last Name. Required
+          type: string
+        suffix:
+          description: Suffix
+          type: string
+        address_1:
+          description: Address Line 1. Required
+          type: string
+        address_2:
+          description: Address Line 2
+          type: string
+        city:
+          description: City. Required
+          type: string
+        state:
+          description: State. Required
+          type: string
+        zip:
+          description: A 5 digit zip code. Required
+          type: string
+    EnhancedPerson:
+      description: A subclass of Person containing additional information about the persons identity.
+      allOf:
+        - $ref: '#/components/schemas/Person'
+        - type: object
+          properties:
+            verified_address:
+              description: True if this persons address could be verified
+              type: boolean
+            verified_voter:
+              description: True if this persons could be verified as a voter
+              type: boolean
+            verified_identity:
+              description: True if this persons identity could be verified
+              type: boolean
+            name_bucket:
+              description: |
+                The name matrix bucket that this persons name falls within. For example, Mike may produce a name bucket containing Michael, Mikey, and Mike
+              type: array
+              items:
+                type: string
+            matrix_name:
+              description: The name which was determined to be the most likely legal name for this person
+              type: string
+            exact_name_matrix_match:
+              description: True if the persons raw name matched exactly with a name in a name matrix bucket
+              type: boolean
+            match_exact_name_matrix_match:
+              description: True if the persons raw name was verified
+              type: boolean
+            name_matrix_cluster_match:
+              description: True if the persons raw name was not verified and a name matrix bucket was used
+              type: boolean
+            match_name_matrix_cluster_match:
+              description: True if the persons raw name was not verified but a name from the name matrix bucket was used and verified
+              type: boolean
+      x-examples: {}
