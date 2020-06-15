@@ -20,7 +20,6 @@
   align-items: center;
   background-color: transparent;
   font-family: Montserrat, sans-serif;
-  border: 1px solid black;
 }
 
 .wrapper {
@@ -35,5 +34,13 @@
   margin-left: auto;
   padding: 30px 50px;
   -webkit-box-pack: center;
-  justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.logout {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 10px;
 }

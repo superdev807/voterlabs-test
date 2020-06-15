@@ -24,22 +24,40 @@ label {
   margin-top: 7px;
 }
 
-.fileLoader {
-  margin-left: calc((100% - 950px) / 2);
-}
-
 .csvContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-top: 10px;
+}
+
+.button-left {
+  display: flex;
+  justify-content: flex-start;
+  height: 56px;
+}
+
+.button-center {
+  display: flex;
+  justify-content: center;
+  height: 56px;
+  z-index: 100;
+}
+
+.button-right {
+  display: flex;
+  justify-content: flex-end;
+  height: 56px;
+  z-index: 100;
 }
 
 table {
   height: 600px;
   overflow-y: scroll;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  min-width: 320px;
+  min-width: 360px;
+  width: 100%;
 }
 
 .table-container {
@@ -75,20 +93,10 @@ th {
 }
 
 tr:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-td:hover:before {
-  content: '';
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.2);
-  z-index: -1;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-  .fileLoader {
-    margin-left: 0px;
-  }
   /* Force table to not be like tables anymore */
   table,
   thead,
@@ -108,10 +116,11 @@ td:hover:before {
 
   tr {
     margin: 0 0 1rem 0;
+    position: relative;
   }
 
   tr:nth-child(odd) {
-    background: #ccc;
+    background: #999;
   }
 
   td {
@@ -120,13 +129,14 @@ td:hover:before {
     border-bottom: 1px solid #eee;
     position: relative;
     padding-left: 50%;
+    background-color: transparent;
   }
 
   td:before {
     /* Now like a table header */
     position: absolute;
     /* Top/left values mimic padding */
-    top: 0;
+    top: 8;
     left: 6px;
     width: 45%;
     padding-right: 10px;

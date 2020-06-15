@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EnhanceService } from '../_services/enhance.service';
+import { Person } from '../_models';
 
 @Component({
   selector: 'csv-reader',
@@ -11,12 +13,30 @@ export class CsvReaderComponent implements OnInit {
   csvData = [];
   fileUpload: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private enhanceService: EnhanceService) {}
 
   ngOnInit() {
     this.fileUpload = this.formBuilder.group({
       file: ['', Validators.required],
     });
+  }
+
+  public convert_chunk(chunks, chunk_num) {
+    this.enhanceService.getEnhancedPeople(chunks).subscribe({
+      next: (data) => {
+        data.map((row, index) => {
+          this.csvData[chunk_num * 10 + index].nameBucket = row.name_bucket;
+          this.csvData[chunk_num * 10 + index].matrixName = row.matrix_name;
+          this.csvData[chunk_num * 10 + index].exactName = row.exact_name;
+        });
+      },
+      error: (error) => console.log('api error', error),
+    });
+  }
+
+  public convert() {
+    let chunkCnt = Math.floor(this.csvData.length / 10);
+    this.convert_chunk(this.csvData.slice(0, 10), 0);
   }
 
   public changeListener(files: FileList) {
@@ -31,14 +51,14 @@ export class CsvReaderComponent implements OnInit {
         mapData.map((data) => {
           let csvRow = data.split(';');
           this.csvData.push({
-            RecordId: csvRow[0],
-            Timestamp: csvRow[1],
-            FName: csvRow[2],
-            LName: csvRow[3],
-            Address: csvRow[4],
-            City: csvRow[5],
-            State: csvRow[6],
-            Zip: csvRow[7],
+            id: csvRow[0],
+            timestamp: csvRow[1],
+            fname: csvRow[2],
+            lname: csvRow[3],
+            address_1: csvRow[4],
+            city: csvRow[5],
+            state: csvRow[6],
+            zip: csvRow[7],
           });
         });
       };

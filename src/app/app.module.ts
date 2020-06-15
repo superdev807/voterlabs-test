@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { appRoutingModule } from './app.routing';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
@@ -11,22 +12,9 @@ import { AlertComponent } from './_components/alert.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CsvReaderComponent } from './csvreader/csvreader.component';
 
-const ROUTES = [
-  {
-    path: '',
-    pathMatch: 'full',
-    component: LoginComponent,
-  },
-  {
-    path: 'dashboard',
-    pathMatch: 'full',
-    component: DashboardComponent,
-  },
-];
-
 @NgModule({
   declarations: [AppComponent, BannerComponent, LoginComponent, AlertComponent, DashboardComponent, CsvReaderComponent],
-  imports: [BrowserModule, appRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [BrowserModule, appRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })
