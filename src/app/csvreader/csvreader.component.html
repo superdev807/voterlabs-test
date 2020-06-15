@@ -1,13 +1,73 @@
-<form [formGroup]="fileUpload">
-  <button #file class="btn btn-light">{{ fileName }}</button>
-  <div style="display: inline-block;">
-    <input
-      #myInput
-      formControlName="file"
-      id="file"
-      name="file"
-      (change)="changeListener($event.target.files)"
-      type="file"
-    />
+<div class="row">
+  <div class="col-lg-12 col-sm-12 col-xs-12 fileLoader">
+    <form [formGroup]="fileUpload">
+      <button #file class="btn btn-dark">{{ fileName }}</button>
+      <div style="display: inline-block;">
+        <input
+          #myInput
+          formControlName="file"
+          id="file"
+          name="file"
+          (change)="changeListener($event.target.files)"
+          type="file"
+        />
+      </div>
+    </form>
   </div>
-</form>
+  <div class="col-lg-12 col-sm-12 col-xs-12 csvContainer">
+    <table cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th>Record ID</th>
+          <th>TimeStamp</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of csvData">
+          <td>{{ item.RecordId }}</td>
+          <td>{{ item.Timestamp }}</td>
+          <td>{{ item.FName }}</td>
+          <td>{{ item.LName }}</td>
+          <td>{{ item.Address }}</td>
+          <td>{{ item.City }}</td>
+          <td>{{ item.State }}</td>
+          <td>{{ item.Zip }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-12 col-sm-12 col-xs-12 csvContainer">
+    <table>
+      <thead>
+        <tr>
+          <th>Record ID</th>
+          <th>TimeStamp</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of csvData">
+          <td>{{ item.RecordId }}</td>
+          <td>{{ item.Timestamp }}</td>
+          <td>{{ item.FName }}</td>
+          <td>{{ item.LName }}</td>
+          <td>{{ item.Address }}</td>
+          <td>{{ item.City }}</td>
+          <td>{{ item.State }}</td>
+          <td>{{ item.Zip }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

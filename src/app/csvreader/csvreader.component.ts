@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CsvReaderComponent implements OnInit {
   fileName = 'Import CSV';
+  csvData = [];
   fileUpload: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {}
@@ -19,19 +20,27 @@ export class CsvReaderComponent implements OnInit {
   }
 
   public changeListener(files: FileList) {
-    console.log(files);
     if (files && files.length > 0) {
       let file: File = files.item(0);
       this.fileName = file.name;
-      console.log(file.name);
-      console.log(file.size);
-      console.log(file.type);
       let reader: FileReader = new FileReader();
       reader.readAsText(file);
       reader.onload = (e) => {
-        console.log('>>>', e.type);
         let csv: string = reader.result as string;
-        console.log(csv);
+        let mapData = csv.split('\n');
+        mapData.map((data) => {
+          let csvRow = data.split(';');
+          this.csvData.push({
+            RecordId: csvRow[0],
+            Timestamp: csvRow[1],
+            FName: csvRow[2],
+            LName: csvRow[3],
+            Address: csvRow[4],
+            City: csvRow[5],
+            State: csvRow[6],
+            Zip: csvRow[7],
+          });
+        });
       };
     }
   }

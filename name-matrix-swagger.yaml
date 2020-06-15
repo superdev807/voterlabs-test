@@ -19,7 +19,8 @@ paths:
               items:
                 type:
                   $ref: '#/components/schema/Person'
-            examples: {}
+            examples:
+              example-1: {}
       responses:
         '200':
           description: Batch was processed
@@ -29,6 +30,8 @@ paths:
                 type: array
                 items:
                   type: '#/components/schema/EnhancedPerson'
+              examples:
+                example-1: {}
       operationId: ''
       summary: ''
   /enhance:
