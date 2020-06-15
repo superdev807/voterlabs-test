@@ -8,7 +8,4 @@ export class Person {
   city: string;
   state: string;
   zip: string;
-  nameBucket: Array<string>;
-  matrixName: string;
-  exactName: string;
 }

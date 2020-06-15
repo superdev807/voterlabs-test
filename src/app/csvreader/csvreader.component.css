@@ -53,8 +53,7 @@ label {
 }
 
 table {
-  height: 600px;
-  overflow-y: scroll;
+  height: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   min-width: 360px;
   width: 100%;
@@ -94,6 +93,11 @@ th {
 
 tr:hover {
   background-color: rgba(255, 255, 255, 0.6);
+}
+
+th:nth-of-type(8),
+td:nth-of-type(8) {
+  border-right: 10px solid rgba(248, 94, 10, 0.7);
 }
 
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
@@ -143,10 +147,12 @@ tr:hover {
     white-space: nowrap;
   }
 
-  /*
-		Label the data
-    You could also use a data-* attribute and content for this. That way "bloats" the HTML, this way means you need to keep HTML and CSS in sync. Lea Verou has a clever way to handle with text-shadow.
-		*/
+  th:nth-of-type(8),
+  td:nth-of-type(8) {
+    border-right: none;
+    border-bottom: 10px solid rgba(248, 94, 10, 0.7);
+  }
+
   td:nth-of-type(1):before {
     content: 'Record ID';
   }
@@ -170,5 +176,11 @@ tr:hover {
   }
   td:nth-of-type(8):before {
     content: 'Zip';
+  }
+  td:nth-of-type(9):before {
+    content: 'Name Bucket';
+  }
+  td:nth-of-type(10):before {
+    content: 'Matrix Name';
   }
 }
