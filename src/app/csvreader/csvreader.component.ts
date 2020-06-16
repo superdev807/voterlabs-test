@@ -11,6 +11,7 @@ import { Person, EnhancedPerson } from '../_models';
 export class CsvReaderComponent implements OnInit {
   fileName = 'Import CSV';
   csvData = [];
+  fields = [];
   epeople: Array<EnhancedPerson> = [];
   fileUpload: FormGroup;
   progressVal = 0;
@@ -63,19 +64,20 @@ export class CsvReaderComponent implements OnInit {
       reader.onload = (e) => {
         let csv: string = reader.result as string;
         let mapData = csv.split('\n');
-        mapData.map((data) => {
+        mapData.map((data, index) => {
           let csvRow = data.split(';');
           if (csvRow.length === 9) {
-            let person = new Person();
-            person.id = csvRow[0];
-            person.timestamp = csvRow[1];
-            person.fname = csvRow[2];
-            person.lname = csvRow[3];
-            person.address_1 = csvRow[4];
-            person.city = csvRow[5];
-            person.state = csvRow[6];
-            person.zip = csvRow[7];
-            this.csvData.push(person);
+            if (index === 0) {
+              csvRow.map((field) => {
+                this.fields.push(field);
+              });
+            } else {
+              let person = new Person();
+              csvRow.map((field, index) => {
+                person[this.fields[index]] = field;
+              });
+              this.csvData.push(person);
+            }
           }
         });
       };
