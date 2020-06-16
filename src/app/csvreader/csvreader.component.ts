@@ -28,7 +28,7 @@ export class CsvReaderComponent implements OnInit {
   }
 
   public async convert() {
-    if (!this.csvData.length) return;
+    if (!this.csvData.length || this.epeople.length) return;
     let chunkCnt = Math.ceil(this.csvData.length / 10);
     for (let i = 0; i < chunkCnt; ++i) {
       const response = await this.convert_chunk(
