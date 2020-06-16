@@ -36,6 +36,7 @@ export class CsvReaderComponent implements OnInit {
       );
       response.map((row, index) => {
         this.epeople[i * 10 + index] = new EnhancedPerson();
+        this.epeople[i * 10 + index].person = this.csvData[i * 10 + index];
         this.epeople[i * 10 + index].verified_address = row.verified_address;
         this.epeople[i * 10 + index].verified_voter = row.verified_voter;
         this.epeople[i * 10 + index].verified_identity = row.verified_identity;
@@ -64,16 +65,18 @@ export class CsvReaderComponent implements OnInit {
         let mapData = csv.split('\n');
         mapData.map((data) => {
           let csvRow = data.split(';');
-          let person = new Person();
-          person.id = csvRow[0];
-          person.timestamp = csvRow[1];
-          person.fname = csvRow[2];
-          person.lname = csvRow[3];
-          person.address_1 = csvRow[4];
-          person.city = csvRow[5];
-          person.state = csvRow[6];
-          person.zip = csvRow[7];
-          this.csvData.push(person);
+          if (csvRow.length === 9) {
+            let person = new Person();
+            person.id = csvRow[0];
+            person.timestamp = csvRow[1];
+            person.fname = csvRow[2];
+            person.lname = csvRow[3];
+            person.address_1 = csvRow[4];
+            person.city = csvRow[5];
+            person.state = csvRow[6];
+            person.zip = csvRow[7];
+            this.csvData.push(person);
+          }
         });
       };
     }
